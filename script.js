@@ -3,38 +3,25 @@ let aplicador = "";
 
 document.addEventListener("DOMContentLoaded", () => {
   const inputNumero = document.getElementById("numeroAtleta");
-  const btnRegistrar = document.querySelector(".entrada button");
+  const formRegistro = document.getElementById("formRegistro");
 
-  // 3) Forçar teclado numérico no mobile (sem alterar HTML)
+  // 🔢 teclado numérico REAL no iOS
   if (inputNumero) {
+    inputNumero.setAttribute("type", "number");
     inputNumero.setAttribute("inputmode", "numeric");
     inputNumero.setAttribute("pattern", "[0-9]*");
-    // opcional: desativa autocomplete que às vezes traz teclado diferente
+    inputNumero.setAttribute("enterkeyhint", "done");
     inputNumero.setAttribute("autocomplete", "off");
   }
 
-  // 1) Registrar também ao apertar Enter / tecla "OK" do teclado
-  if (inputNumero) {
-    inputNumero.addEventListener("keydown", (e) => {
-      // captura Enter (PC) e a tecla equivalente em teclados móveis
-      if (e.key === "Enter") {
-        e.preventDefault();
-        registrar();
-      }
-    });
-  }
-
-  // garantir que o click no botão registre usando a mesma função
-  if (btnRegistrar) {
-    // mantemos onclick original (se existir), mas adicionamos listener para garantir comportamento consistente
-    btnRegistrar.addEventListener("click", (e) => {
-      // se estiver dentro de um form, evitar submit padrão
-      if (e) e.preventDefault?.();
+  // 📲 botão GO / Return / seta do iOS
+  if (formRegistro) {
+    formRegistro.addEventListener("submit", (e) => {
+      e.preventDefault();
       registrar();
     });
   }
 
-  // se já houver dados salvos, carregar
   carregarCache();
 });
 
@@ -75,7 +62,7 @@ function registrar() {
 
   // limpa o campo e mantém o foco (2)
   input.value = "";
-  input.focus();
+  setTimeout(() => input.focus(), 0);
 }
 
 function atualizarTela() {

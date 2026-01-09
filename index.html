@@ -22,10 +22,16 @@
 
     <h2 id="aplicadorTitulo"></h2>
 
-    <div class="entrada">
-      <input type="number" id="numeroAtleta" placeholder="Número do atleta">
-      <button onclick="registrar()">Registrar</button>
-    </div>
+<form id="formRegistro" class="entrada">
+  <input
+    id="numeroAtleta"
+    type="number"
+    inputmode="numeric"
+    placeholder="Número do atleta"
+    required
+  >
+  <button type="submit">Registrar</button>
+</form>
 
     <div class="atual">
       <strong>Último registro:</strong>
