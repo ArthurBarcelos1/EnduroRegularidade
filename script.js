@@ -1,6 +1,43 @@
 let registros = [];
 let aplicador = "";
 
+document.addEventListener("DOMContentLoaded", () => {
+  const inputNumero = document.getElementById("numeroAtleta");
+  const btnRegistrar = document.querySelector(".entrada button");
+
+  // 3) Forçar teclado numérico no mobile (sem alterar HTML)
+  if (inputNumero) {
+    inputNumero.setAttribute("inputmode", "numeric");
+    inputNumero.setAttribute("pattern", "[0-9]*");
+    // opcional: desativa autocomplete que às vezes traz teclado diferente
+    inputNumero.setAttribute("autocomplete", "off");
+  }
+
+  // 1) Registrar também ao apertar Enter / tecla "OK" do teclado
+  if (inputNumero) {
+    inputNumero.addEventListener("keydown", (e) => {
+      // captura Enter (PC) e a tecla equivalente em teclados móveis
+      if (e.key === "Enter") {
+        e.preventDefault();
+        registrar();
+      }
+    });
+  }
+
+  // garantir que o click no botão registre usando a mesma função
+  if (btnRegistrar) {
+    // mantemos onclick original (se existir), mas adicionamos listener para garantir comportamento consistente
+    btnRegistrar.addEventListener("click", (e) => {
+      // se estiver dentro de um form, evitar submit padrão
+      if (e) e.preventDefault?.();
+      registrar();
+    });
+  }
+
+  // se já houver dados salvos, carregar
+  carregarCache();
+});
+
 function iniciar() {
   aplicador = document.getElementById("aplicadorNome").value.trim();
   if (!aplicador) {
@@ -14,10 +51,17 @@ function iniciar() {
     `Aplicador: ${aplicador}`;
 
   carregarCache();
+
+  // garantir foco ao abrir
+  const input = document.getElementById("numeroAtleta");
+  if (input) input.focus();
 }
 
 function registrar() {
-  const numero = document.getElementById("numeroAtleta").value;
+  const input = document.getElementById("numeroAtleta");
+  if (!input) return;
+
+  const numero = input.value.trim();
   if (!numero) return;
 
   const horario = new Date().toLocaleTimeString("pt-BR");
@@ -29,7 +73,9 @@ function registrar() {
   document.getElementById("ultimoRegistro").innerText =
     `Atleta ${numero} - ${horario}`;
 
-  document.getElementById("numeroAtleta").value = "";
+  // limpa o campo e mantém o foco (2)
+  input.value = "";
+  input.focus();
 }
 
 function atualizarTela() {
@@ -48,6 +94,14 @@ function atualizarTela() {
         <button class="botao-excluir" onclick="remover(${i})">X</button>
       </td>
     `;
+
+    // assegura que o botão X não herde largura total (caso CSS global force isso)
+    const btn = tr.querySelector(".botao-excluir");
+    if (btn) {
+      btn.style.width = "auto";
+      btn.style.padding = "6px 10px";
+      btn.style.marginTop = "0";
+    }
 
     tbody.appendChild(tr);
   });
@@ -83,6 +137,11 @@ function carregarCache() {
 
   const dados = JSON.parse(cache);
   registros = dados.registros || [];
+  // se aplicador ainda vazio, tenta pegar do cache (útil caso o nome tenha sido salvo antes)
+  if (!aplicador && dados.aplicador) {
+    aplicador = dados.aplicador;
+    document.getElementById("aplicadorTitulo").innerText = `Aplicador: ${aplicador}`;
+  }
   atualizarTela();
 }
 
