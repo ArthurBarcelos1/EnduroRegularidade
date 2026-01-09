@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f2f2f2;
+  margin: 0;
+  padding: 10px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+}
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+button {
+  background: #1e88e5;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #1565c0;
+}
+
+.hidden {
+  display: none;
+}
+
+.entrada {
+  display: flex;
+  gap: 10px;
+}
+
+.entrada input {
+  flex: 2;
+}
+
+.entrada button {
+  flex: 1;
+}
+
+.atual {
+  margin: 15px 0;
+  background: #e3f2fd;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.exportar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.botao-excluir {
+  background: #e53935;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.botao-excluir:hover {
+  background: #c62828;
+}
+
+.botao-excluir-tudo {
+  margin-top: 20px;
+  background: #b71c1c;
+  color: white;
+  font-size: 16px;
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.botao-excluir-tudo:hover {
+  background: #7f0000;
+}
+
+
+@media (max-width: 480px) {
+  .entrada {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Enduro de Regularidade - Aplicador</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <div id="aplicadorBox">
+    <h2>Identificação do Aplicador</h2>
+    <input type="text" id="aplicadorNome" placeholder="Nome completo do aplicador">
+    <button onclick="iniciar()">Iniciar Prova</button>
+  </div>
+
+  <div id="sistema" class="hidden">
+
+    <h2 id="aplicadorTitulo"></h2>
+
+    <div class="entrada">
+      <input type="number" id="numeroAtleta" placeholder="Número do atleta">
+      <button onclick="registrar()">Registrar</button>
+    </div>
+
+    <div class="atual">
+      <strong>Último registro:</strong>
+      <div id="ultimoRegistro">Nenhum</div>
+    </div>
+
+    <!-- BOTÕES DE EXPORTAÇÃO (AGORA ANTES DO LOG) -->
+    <div class="exportar">
+      <button onclick="exportarCSV()">CSV</button>
+      <button onclick="exportarTXT()">TXT</button>
+      <button onclick="exportarJSON()">JSON</button>
+    </div>
+
+    <!-- LOG DE REGISTROS -->
+    <table>
+      <thead>
+        <tr>
+          <th>Atleta</th>
+          <th>Horário</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="tabela"></tbody>
+    </table>
+
+        <!-- BOTÃO EXCLUIR TUDO (ÚLTIMO ELEMENTO) -->
+    <button class="botao-excluir-tudo" onclick="removerTodos()">
+        Excluir todos os registros
+    </button>
+  </div>
+
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
