@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // 📲 botão GO / Return / seta do iOS
   if (formRegistro) {
     formRegistro.addEventListener("submit", (e) => {
-      e.preventDefault();
-      registrar();
-    });
+    e.preventDefault();
+    registrar();
+  });
+
   }
 
   carregarCache();
@@ -62,7 +63,7 @@ function registrar() {
 
   // limpa o campo e mantém o foco (2)
   input.value = "";
-  setTimeout(() => input.focus(), 0);
+  requestAnimationFrame(() => input.focus());
 }
 
 function atualizarTela() {
